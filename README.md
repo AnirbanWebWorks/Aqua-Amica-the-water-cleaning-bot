@@ -1,192 +1,202 @@
-# 🌊 Aqua Amica — Autonomous Water Cleaning & Quality Monitoring Bot
+🌊 AI-Based Autonomous River Cleaning Robot with Smart Waste Segregation and Water Quality Monitoring
+📌 Overview
 
-> An IoT-powered robotic system that collects floating waste from water bodies, segregates it into metallic and non-metallic categories, and monitors water quality in real time — powered by solar energy and controlled over long-range (LoRa) communication.
+The AI-Based Autonomous River Cleaning Robot is an intelligent floating robotic platform designed to automatically detect, collect, and segregate floating waste from water bodies while simultaneously monitoring water quality in real time.
 
-**🌍 International Recognition** — Outstanding Project, BRICS IIC (China) | **🏆 Granted Indian Patent** — Publication No. `IN202531062030 A1` | **📄 Published Research** — *National Conference on Communication, Computing and IoT (NCCCI-2025)*, Chapter 92, ISBN 978-93-6135-445-8
+The system utilizes Computer Vision, IoT, Embedded Systems, and Environmental Monitoring technologies to improve river cleanliness and reduce manual intervention.
 
----
+The robot autonomously detects waste using an ESP32-CAM, navigates toward the detected object, collects it using a conveyor mechanism, segregates metallic and non-metallic waste, and continuously measures water quality using TDS and Turbidity sensors.
 
-## 📖 Overview
+🚀 Key Features
+♻️ Autonomous Waste Detection
+Real-time waste detection using ESP32-CAM
+Computer Vision-based object tracking
+Autonomous navigation toward floating waste
+🛶 Waste Collection System
+Conveyor belt mechanism for waste pickup
+Automatic activation upon waste detection
+Floating PVC frame with buoyancy support
+🗑️ Smart Waste Segregation
+Inductive proximity sensor for metal detection
+Automatic sorting into:
+Metallic Waste Bin
+Non-Metallic Waste Bin
+Servo-controlled segregation gate
+💧 Water Quality Monitoring
+Real-time TDS measurement
+Real-time Turbidity measurement
+Water quality classification:
+Clean
+Moderate
+Polluted
+📡 IoT Integration
+Live sensor monitoring
+Cloud-based data logging
+Environmental data analytics
+🎯 Objectives
+Remove floating waste from rivers, ponds, and lakes.
+Reduce manual cleaning efforts.
+Improve environmental sustainability.
+Monitor water quality continuously.
+Segregate collected waste automatically.
+Generate useful environmental data.
+🏗️ System Architecture
+                    +----------------+
+                    |   ESP32-CAM    |
+                    | Waste Detection|
+                    +-------+--------+
+                            |
+                            |
+                            v
+                    +----------------+
+                    | Arduino UNO    |
+                    | Main Controller|
+                    +-------+--------+
+                            |
+     ------------------------------------------------
+     |              |             |                 |
+     v              v             v                 v
 
-Water pollution from floating debris — plastics, organic waste, and metallic scrap — is a growing environmental problem that manual and conventional cleaning methods can't scale to address. **Aqua Amica** is a semi-autonomous water cleaning bot designed to operate on rivers, lakes, and ponds. It combines:
++---------+   +-----------+  +---------+   +---------------+
+| Motors  |   | Conveyor  |  | Servo   |   | LCD Display   |
++---------+   +-----------+  +---------+   +---------------+
 
-- **Automated waste collection** via a conveyor belt system
-- **Smart waste segregation** into metallic vs. non-metallic compartments
-- **Real-time water quality monitoring** (pH, TDS, turbidity)
-- **Solar-powered operation** for sustainability and low running cost
-- **LoRa-based long-range communication** for navigation and data transmission
-- **Android app control interface** for the human operator
+     |              |             |
+     |              |             |
+     v              v             v
 
-The system was developed as a research and patent project at Narula Institute of Technology and has been peer-reviewed and published, in addition to being granted an Indian patent application.
++-----------+ +-------------+ +----------------+
+| IR Sensor | | Inductive   | | TDS/Turbidity |
++-----------+ | Sensor      | +----------------+
+              +-------------+
+🔄 Working Principle
+Step 1: Water Quality Monitoring
 
----
+The robot continuously measures:
 
-## 🎥 Demo
+TDS (Total Dissolved Solids)
+Turbidity
 
-> *Add a photo/GIF/video of the working prototype here — this is the single highest-impact addition to this README.*
+Water quality information is displayed on the LCD and can be transmitted to an IoT platform.
 
-```
-[ prototype photo / demo GIF / YouTube link ]
-```
+Step 2: Waste Detection
 
----
+The ESP32-CAM continuously scans the water surface.
 
-## ❓ Problem It Solves
+When floating waste is detected:
 
-Urbanization and industrial growth have accelerated the accumulation of plastics and organic waste in water bodies, degrading water quality and harming aquatic ecosystems. Conventional cleaning is manual, slow, and doesn't scale. Aqua Amica offers a **low-cost, solar-powered, single-operator solution** that combines waste collection, intelligent sorting, and continuous water quality assessment — making conservation efforts more efficient and scalable.
+Waste position is calculated.
+Navigation commands are sent to Arduino UNO.
 
----
+Commands:
 
-## ✨ Features
+F → Forward
+L → Left
+R → Right
+S → Stop
+C → Waste Captured
+Step 3: Autonomous Navigation
 
-- 🧲 **Inductive proximity sensing** — detects and classifies metallic debris for automatic segregation
-- 🌫️ **Real-time water quality metrics** — pH, Total Dissolved Solids (TDS), and turbidity monitoring
-- 🛞 **Automated conveyor belt** — continuously collects floating waste from the water surface
-- 🔀 **Servo-based sorting mechanism** — routes waste into metallic (right) / non-metallic (left) compartments
-- 📡 **LoRa long-range communication** — reliable navigation and data link over extended distances
-- ☀️ **Solar-powered** — sustainable, low operating cost, suited for long-term deployment
-- 📷 **ESP32-CAM with object detection** — helps the bot detect and navigate toward floating waste
-- 📱 **Android app interface** — human-in-the-loop control for navigation and operation
-- 🧱 **Modular design** — sensors and components can be replaced/upgraded independently
-- 🧪 **Rust-resistant, durable build** — designed for freshwater and marine environments
+The robot moves toward the detected waste using differential drive motors.
 
----
+Step 4: Waste Collection
 
-## 🛠️ Hardware & Tech Stack
+Once the waste reaches the conveyor zone:
 
-| Category | Components |
-|---|---|
-| **Microcontroller** | ESP8266 (main controller, IoT connectivity) |
-| **Camera/Vision** | ESP32-CAM (object detection & navigation) |
-| **Sensors** | pH sensor, TDS sensor, Turbidity sensor, Inductive Proximity sensor, IR sensor |
-| **Actuation** | DC motor + motor driver (conveyor belt), Servo motors (waste sorting) |
-| **Communication** | LoRa module (long-range navigation/data), Android app (operator control) |
-| **Power** | Solar panel + battery system |
-| **Output/Display** | LCD (status/readings display) |
+Drive motors stop.
+Conveyor motor starts.
+Waste is lifted into the collection chamber.
+Step 5: Waste Detection on Conveyor
 
----
+The top IR sensor detects incoming waste.
 
-## 🧩 System Architecture
+Upon detection:
 
-```
-                     ┌──────────────┐
-                     │  POWER SUPPLY │ (Solar)
-                     └──────┬───────┘
-                            │
-  ┌───────────┐      ┌──────▼───────┐      ┌────────┐
-  │ pH Sensor  ├─────►│               ├─────►│  LCD   │
-  ├───────────┤      │               │      └────────┘
-  │ Inductive  ├─────►│               │
-  │ Proximity  │      │ MICROCONTROLLER├─────►│ Object      │
-  ├───────────┤      │   (ESP8266)   │      │ Detection   │
-  │ Turbidity  ├─────►│               │      │ (ESP32-CAM) │
-  ├───────────┤      │               │
-  │ TDS Sensor ├─────►│               ├─────►┌─────────────────┐
-  ├───────────┤      │               │      │ Segregation      │
-  │ IR Sensor  ├─────►│               │      │ System (Servo)   ├──► Metallic Waste
-  └───────────┘      └──────┬────────┘      └─────────────────┘└─► Non-Metallic Waste
-                            │
-              ┌─────────────┴──────────────┐
-              ▼                             ▼
-       ┌─────────────┐             ┌──────────────────┐
-       │ Motor Driver │             │ Long Range (LoRa) │
-       │  → Motor     │             │  Comm. Module     │
-       └─────────────┘             └──────────────────┘
-```
+Conveyor motor stops.
+Sorting sequence starts.
+Step 6: Waste Segregation
 
-*(Replace this ASCII diagram with the actual block diagram image from the paper/patent — see `Fig 1: Block diagram of the proposed Bot`.)*
+An inductive proximity sensor determines whether the waste is metallic.
 
----
+Metallic Waste
+Metal Detected
+↓
+Servo Opens Metal Bin
+↓
+Waste Deposited
+Non-Metallic Waste
+Non-Metal Detected
+↓
+Servo Opens Non-Metal Bin
+↓
+Waste Deposited
+Step 7: Resume Operation
 
-## ⚙️ How It Works
+The servo returns to the home position and the robot resumes searching for waste.
 
-1. **Detection** — The IR sensor detects incoming floating waste and triggers the segregation subsystem.
-2. **Collection** — A conveyor belt, driven by a motor and motor driver, continuously gathers surface waste.
-3. **Classification** — The inductive proximity sensor determines whether the waste is metallic or non-metallic.
-4. **Sorting** — Based on the classification, a servo motor diverts the waste: **right compartment → metallic**, **left compartment → non-metallic**.
-5. **Water Quality Monitoring** — The pH, TDS, and turbidity sensors continuously sample the surrounding water and report readings.
-6. **Navigation & Comms** — The ESP32-CAM performs object detection to help steer toward waste; the LoRa module handles long-range communication back to the operator/base station.
-7. **Control** — The human operator monitors and controls bot movement through an Android application.
-8. **Power** — The entire system runs on solar power, supporting long-duration, low-cost deployment.
+🧠 Technologies Used
+Technology	Purpose
+Computer Vision	Waste Detection
+Embedded Systems	Control System
+IoT	Remote Monitoring
+Automation	Waste Collection
+Robotics	Autonomous Navigation
+Environmental Monitoring	Water Quality Analysis
+🔧 Hardware Components
+Controller
+Arduino UNO
+ESP32-CAM
+Sensors
+IR Sensor
+Inductive Proximity Sensor
+Turbidity Sensor
+TDS Sensor
+Actuators
+DC Motors
+Conveyor Motor
+Servo Motor
+Display
+16x2 I2C LCD
+Power System
+Battery Pack
+Voltage Regulation Circuit
+Mechanical Structure
+PVC Pipe Frame
+Floating Bottles/Pontoons
+Waste Collection Basket
+Conveyor Assembly
+📊 Water Quality Classification
+TDS (ppm)	Turbidity	Water Status
+< 300	Low	Clean
+300 – 600	Medium	Moderate
+> 600	High	Polluted
 
----
+📈 Future Improvements
+YOLO-based waste classification
+GPS-based autonomous navigation
+Obstacle avoidance system
+Cloud dashboard
+Mobile application
+Solar-powered charging system
+AI-based pollution prediction
+Multi-category waste segregation
+🏆 Applications
+River Cleaning
+Lake Cleaning
+Pond Cleaning
+Smart City Projects
+Environmental Monitoring
+Research and Education
+Waste Management Systems
+📚 Research Contribution
 
-## 📦 Repository Structure
+This project integrates:
 
-```
-aqua-amica/
-├── README.md
-├── /firmware              # ESP8266 / ESP32-CAM source code
-├── /hardware
-│   ├── circuit-diagram/   # Wiring & schematic diagrams
-│   └── bom.md             # Bill of materials
-├── /android-app           # Android control app source (if included)
-├── /docs
-│   ├── conference-paper.pdf
-│   └── patent-application.pdf
-├── /images                # Prototype photos, block diagrams, demo GIFs
-├── requirements.txt / platformio.ini
-└── LICENSE
-```
+Artificial Intelligence
+Computer Vision
+IoT
+Embedded Systems
+Robotics
+Environmental Monitoring
 
----
-
-## 🚀 Setup & Installation
-
-> Fill in exact steps once firmware/code is added to the repo. Suggested structure below:
-
-```bash
-# Clone the repository
-git clone https://github.com/<your-username>/aqua-amica.git
-cd aqua-amica
-
-# Flash firmware to ESP8266 (example using PlatformIO)
-platformio run --target upload
-
-# Flash ESP32-CAM for object detection module
-# (see /firmware/esp32-cam for instructions)
-```
-
-**Hardware assembly:** refer to `/hardware/circuit-diagram` for wiring the sensors, motor driver, and LoRa module to the ESP8266.
-
----
-
-## 📊 Results
-
-- Experimentally validated for **effectiveness, scalability, and long-term deployment potential** in aquatic pollution control (per published conference paper).
-- Successfully demonstrated **automated metal/non-metal waste segregation** using IR + inductive proximity sensing.
-- Real-time water quality data acquisition (pH, TDS, turbidity) validated for environmental assessment use cases.
-
-*(Add specific numbers if available: sorting accuracy %, battery life, operating range via LoRa, waste collection rate, etc.)*
-
----
-
-## 🏅 Recognition
-
-- **🌍 International Recognition — BRICS IIC** — Recognized as an **outstanding project** at the BRICS International Innovation Competition, with the team representing India in China
-- **Indian Patent Application** — *"Design and Development of a Water Cleaning Bot for all Water Bodies"*, Publication No. `IN202531062030 A1`, filed by Narula Institute of Technology (2025)
-- **Published Research** — *"Design and Development of a Robotic Solution for Water Surface Pollution Control"*, National Conference on Communication, Computing and IoT (NCCCI-2025), AkiNik Publications, Chapter 92, DOI: [10.22271/ed.book.3224](https://doi.org/10.22271/ed.book.3224)
-
-**Authors/Inventors:** Dr. Bikas Mondal, Mrs. Sanghamitra Layek, Anirban Saha, Somshubhra Bose, Anushka Bharati, Devdipro Bhaduri, Sayan Bag, Soumya Bhattacharyya, Dr. Sourav Saha
-
----
-
-## 🔭 Future Improvements
-
-- Fully autonomous navigation (currently Android-app-operator-assisted)
-- On-board microplastic filtration enhancements
-- Expanded pollutant sensor suite (e.g., dissolved oxygen, temperature)
-- Cloud dashboard for remote, multi-bot fleet monitoring
-- Battery/solar efficiency optimization for extended deployment
-
----
-
-## 📄 License
-
-*(Add a license — e.g., MIT for the codebase. Note: since this work is tied to a patent application, consult with co-inventors/institution before choosing a license for public release.)*
-
----
-
-## 🙏 Credits
-
-Developed at **Narula Institute of Technology, Kolkata** as part of ongoing research into IoT-based environmental robotics.
+into a single autonomous platform for sustainable water resource management.
