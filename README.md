@@ -2,7 +2,7 @@
 
 **Smart Waste Segregation & Real-Time Water Quality Monitoring**
 
-![Prototype](images/prototype.png)
+![Prototype](aqua%20amica/images/Prototype.jpg)
 
 ---
 
@@ -62,7 +62,7 @@ The robot autonomously detects waste using an **ESP32-CAM**, navigates toward it
 
 ## 🏗️ System Architecture
 
-![Block Diagram](images/block_diagram.png)
+![Block Diagram](aqua%20amica/images/block_diagram.png)
 
 The system is built around a central microcontroller that interfaces with a suite of sensors (pH, TDS, Turbidity, Inductive Proximity, IR), a camera-based object detection module, an LCD for local readouts, a long-range communication module for remote monitoring, and a motor driver controlling the drive motors. Detected waste is routed through the segregation system into metallic or non-metallic bins.
 
@@ -70,7 +70,7 @@ The system is built around a central microcontroller that interfaces with a suit
 
 ## 🔄 Working Principle — Flowchart
 
-![Flowchart](images/flowchart.png)
+![Flowchart](aqua%20amica/images/flowchart.png)
 
 ### Step 1: Water Quality Monitoring
 The robot continuously measures **TDS (Total Dissolved Solids)** and **Turbidity**. This runs in parallel with waste detection and is displayed on the LCD / sent to the IoT platform.
@@ -163,9 +163,8 @@ The servo returns to the home position and the robot resumes searching for waste
 | 300 – 600 | Medium | Moderate |
 | > 600 | High | Polluted |
 
+
 ---
-
-
 
 ## 📈 Future Improvements
 
