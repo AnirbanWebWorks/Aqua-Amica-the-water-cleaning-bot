@@ -209,4 +209,4 @@ Narula Institute of Technology
 
 **Connect With Me**
 - GitHub: [AnirbanWebWorks](https://github.com/AnirbanWebWorks)
-- LinkedIn: *(Add your LinkedIn URL here)*
+- LinkedIn: [Anirban Saha](www.linkedin.com/in/anirban-saha-057b19253)
